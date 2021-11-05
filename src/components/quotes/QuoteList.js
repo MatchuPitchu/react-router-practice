@@ -3,14 +3,15 @@ import QuoteItem from './QuoteItem';
 import classes from './QuoteList.module.css';
 
 // sorting helper fn:
-// if a.id ist größer als b.id, dann soll b vor a sortiert werden;
-// if a.id ist kleiner als b.id, dann soll a vor b sortiert bleiben
+// for ascending true or false, return means the same:
+// return +1 means sort() sorts a to higher index than b;
+// return -1 means sort() sorts a to lower index than b;
 const sortQuotes = (quotes, ascending) => {
-  return quotes.sort((quoteA, quoteB) => {
+  return quotes.sort((a, b) => {
     if (ascending) {
-      return quoteA.id > quoteB.id ? 1 : -1;
+      return a.id > b.id ? 1 : -1;
     } else {
-      return quoteA.id < quoteB.id ? 1 : -1;
+      return a.id < b.id ? 1 : -1;
     }
   });
 };
@@ -25,15 +26,21 @@ const QuoteList = ({ quotes }) => {
   // default JS class URLSearchParams that returns obj
   // that contains all query params key value pairs
   const queryParams = new URLSearchParams(location.search);
+  // evaluates to true or false
   const ascending = queryParams.get('sort') === 'asc';
 
   const sortedQuotes = sortQuotes(quotes, ascending);
 
   const changeSortingHandler = () => {
-    // pushing a page leads to re-evaluation of target component(s)
+    // 1) pushing a page leads to re-evaluation of target component(s);
     // if quotes are currently sorted ascendingly
     // then new query param after click would be 'desc'
-    history.push(`/quotes?sort=${ascending ? 'desc' : 'asc'}`);
+    // history.push(`${location.pathname}?sort=${ascending ? 'desc' : 'asc'}`);
+    // 2) alternative way of creating string paths for target destination
+    history.push({
+      pathname: location.pathname,
+      search: `sort=${ascending ? 'desc' : 'asc'}`,
+    });
   };
 
   return (
