@@ -1,4 +1,4 @@
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import QuoteItem from './QuoteItem';
 import classes from './QuoteList.module.css';
 
@@ -18,9 +18,9 @@ const sortQuotes = (quotes, ascending) => {
 
 const QuoteList = ({ quotes }) => {
   // working with query parameters to sort quotes by ascending or descending order;
-  // whereas useHistory gives access to browser history obj,
+  // whereas useNavigate gives access to browser history obj,
   // useLocation gives access to currently loaded page
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
 
   // default JS class URLSearchParams that returns obj
@@ -35,9 +35,9 @@ const QuoteList = ({ quotes }) => {
     // 1) pushing a page leads to re-evaluation of target component(s);
     // if quotes are currently sorted ascendingly
     // then new query param after click would be 'desc'
-    // history.push(`${location.pathname}?sort=${ascending ? 'desc' : 'asc'}`);
+    // navigate(`${location.pathname}?sort=${ascending ? 'desc' : 'asc'}`);
     // 2) alternative way of creating string paths for target destination
-    history.push({
+    navigate({
       pathname: location.pathname,
       search: `sort=${ascending ? 'desc' : 'asc'}`,
     });
