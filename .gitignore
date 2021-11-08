@@ -24,3 +24,6 @@ yarn-error.log*
 
 #eslintcache recommanded to ignore for GitHub
 .eslintcache
+
+#Firebase specific
+/.firebase

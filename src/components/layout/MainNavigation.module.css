@@ -9,8 +9,12 @@
 }
 
 .logo {
+  text-decoration: none;
   font-size: 2rem;
   color: white;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
 }
 
 .nav ul {
